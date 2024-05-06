@@ -135,3 +135,28 @@
 |02.06.2023|AllTopLevelVoiceAppsToMarkdownDocFx.ps1|1.0.6|Rename "call_flows.md" to "call-flows.md" to follow the awesome-docfx-template repo.|
 |02.06.2023|Find-CallQueueAndAutoAttendantUserLinks.ps1|1.0.2|Migrate to Get-AllVoiceAppsAndResourceAccounts function and set -CacheResults to True for performance improvements.|
 |04.07.2023|M365CallFlowVisualizerV2.ps1|3.0.6|Add new parameter `-ShowCqAuthorizedUsers` to display authorized users of call queues.|
+|18.08.2023|M365CallFlowVisualizerV2.ps1|3.0.7|Add support for CQ no agents opted/logged.|
+|18.08.2023|M365CallFlowVisualizerV2.ps1|3.0.8|Add new parameter `-ShowAaAuthorizedUsers` to display authorized users of auto attendants.|
+|26.10.2023|M365CallFlowVisualizerV2.ps1|3.0.9|Fix Team names with special characters (Add Optimize-DisplayName function).|
+|27.10.2023|M365CallFlowVisualizerV2.ps1|3.0.10|Add support for Teams and Graph sign in via Entra ID App Registration / Service Principal.|
+|27.10.2023|Connect-M365CFV.ps1|1.1.0|Add support for Teams and Graph sign in via Entra ID App Registration / Service Principal.|
+|27.10.2023|Get-M365CFVTeamsAdminToken.ps1|1.0.0|Add support for Teams and Graph sign in via Entra ID App Registration / Service Principal.|
+|27.10.2023|SecureCredsMgmt.ps1|1.0.0|Add support for Teams and Graph sign in via Entra ID App Registration / Service Principal.|
+|27.10.2023|Get-AllVoiceAppsAndResourceAccounts.ps1|1.0.1|Fix result caching by making all relevant variables global.|
+|27.10.2023|M365CallFlowVisualizerV2.ps1|3.0.11|Add support for PDF Export. Thanks @MicheleBomello for this PR!|
+|06.11.2023|M365CallFlowVisualizerV2.ps1|3.1.0|Add support to check if an Auto Attendant is currently in business- or after hours schedule or in holiday schedule by using -CheckCallFlowRouting.|
+|07.11.2023|M365CallFlowVisualizerV2.ps1|3.1.1|Bug fixes, improvements in console and diagram output (support for ComplementEnabled: False schedules)|
+|07.11.2023|M365CallFlowVisualizerV2.ps1|3.1.2|Remove (broken) support for ServicePrincipal auth. Add warning message when -ConnectWithServicePrincipal is used.|
+|07.11.2023|Get-M365CFVTeamsAdminToken.ps1|1.0.0|File removed.|
+|07.11.2023|Connect-M365CFV.ps1|1.1.1|Remove support for Teams and Graph sign in via Entra ID App Registration / Service Principal. This has been moved into its own function.|
+|07.11.2023|Connect-MsTeamsServicePrincipal.ps1|1.0.0|Prepare for support for Teams and Graph sign in via Entra ID App Registration / Service Principal once it supports Get-CsOnlineApplicationInstance.|
+|22.11.2023|M365CallFlowVisualizerV2.ps1|3.1.3|Fix bug that showed longest idle CQ as presence based routing false when in fact it's true.|
+|07.02.2024|M365CallFlowVisualizerV2.ps1|3.1.4|Add parameter `-ShowSharedVoicemailGroupSubscribers` to display if people are following the group in their inbox.|
+|07.02.2024|Get-SharedVoicemailGroupMembers.ps1|1.0.2|Add parameter `-ShowSharedVoicemailGroupSubscribers` to display if people are following the group in their inbox.|
+|06.04.2024|Connect-M365CFV.ps1|1.1.2|Add `Connect-ExchangeOnline`.|
+|15.04.2024|M365CallFlowVisualizerV2.ps1|3.1.5|Add support for app only auth for some features Use `-ConnectWithServicePrincipal` (Exchange Online/ `-ShowSharedVoicemailGroupSubscribers` are not supported yet).|
+|15.04.2024|Get-AllVoiceAppsAndResourceAccountsAppAuth.ps1|1.0.1|Add support for app only auth for some features Use `-ConnectWithServicePrincipal` (Exchange Online/ `-ShowSharedVoicemailGroupSubscribers` are not supported yet).|
+|15.04.2024|Connect-M365CFV.ps1|1.1.3|Add checks to also prompt for Exchange credentials when using Hardcore mode.|
+|15.04.2024|Get-TeamsUserCallFlow.ps1|1.0.9|Optimize performance by checking objects in memory instead of using `Get-CsOnlineApplicationInstance`.|
+|29.04.2024|M365CallFlowVisualizerV2.ps1|3.1.6|Add support for greetings on disconnect and redirect to phone number and voice app for overflow, timeout and no agent exceptions.|
+

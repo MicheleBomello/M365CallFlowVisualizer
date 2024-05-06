@@ -8,7 +8,7 @@
     Changelog:          .\Changelog.md
 
 #>
-function Get-AllVoiceAppsAndResourceAccounts {
+function Get-AllVoiceAppsAndResourceAccountsAppAuth {
     param (
     )
 
@@ -90,31 +90,45 @@ function Get-AllVoiceAppsAndResourceAccounts {
 
         Write-Host "Retrieving all Resource Accounts... this can take a while..." -ForegroundColor Magenta
 
-        $Global:allResourceAccounts = Get-CsOnlineApplicationInstance -ResultSize 9999
+        $allResourceAccountCsOnlineUsers = Get-CsOnlineUser -ResultSize 9999 -Filter "(FeatureTypes -contains 'VoiceApp')"
 
-        # -ResultSize not working in MicrosoftTeams PowerShell 5.0.0
+        $Global:allResourceAccounts = @()
 
-        # $Global:allResourceAccounts = Get-CsOnlineApplicationInstance -ResultSize $queryResultSize
+        foreach ($resourceAccountCsOnlineUser in $allResourceAccountCsOnlineUsers) {
 
-        # if ($allResourceAccounts.Count -ge $queryResultSize) {
+            if ($allAutoAttendants.ApplicationInstances -contains $resourceAccountCsOnlineUser.Identity) {
 
-        #     Write-Host "This tenant has at least $queryResultSize or more Resource Accounts. Querrying additional RAs..." -ForegroundColor Cyan
+                $resourceAccountType = "Auto Attendant"
 
-        #     $skipCounter = $queryResultSize
+                $applicationId = "ce933385-9390-45d1-9512-c8d228074e07"
 
-        #     do {
-        
-        #         $querriedRAs = Get-CsOnlineApplicationInstance -Skip $skipCounter
-        
-        #         $allResourceAccounts += $querriedRAs
+            }
 
-        #         $skipCounter += $querriedRAs.Count
+            elseif ($allCallQueues.ApplicationInstances -contains $resourceAccountCsOnlineUser.Identity) {
 
-        #     } until (
-        #         $querriedRAs.Count -eq 0
-        #     )
+                $resourceAccountType = "Call Queue"
 
-        # }
+                $applicationId = "11cd3e2e-fccb-42ad-ad00-878b93575e07"
+
+            }
+
+            else {
+
+                $resourceAccountType = "Unknown"
+
+            }
+
+            $resourceAccount = [PSCustomObject]@{
+                ApplicationId               = $applicationId
+                DisplayName                 = $resourceAccountCsOnlineUser.DisplayName
+                UserPrincipalName           = $resourceAccountCsOnlineUser.UserPrincipalName
+                ObjectId                    = $resourceAccountCsOnlineUser.Identity
+                PhoneNumber                 = $resourceAccountCsOnlineUser.LineUri
+            }
+
+            $Global:allResourceAccounts += $resourceAccount
+
+        }
 
         Write-Host "Finished getting all Resource Accounts. Number of Resource Accounts found: $($allResourceAccounts.Count)"
 
